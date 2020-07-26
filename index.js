@@ -3,24 +3,7 @@ const form = document.querySelector("form");
 const button = document.querySelector("button");
 const chatbox = document.querySelector("#chatbox");
 
-let id = 0;
-
-function handleSubmit(event) {
-  event.preventDefault();
-  const sender = ["Me", "Myself", "I"][Math.floor(Math.random() * 3)];
-  createMessage(sender, input.value);
-  form.reset();
-}
-
-form.addEventListener("submit", handleSubmit);
-
-function getChuckNorrisJoke() {
-  fetch("https://api.icndb.com/jokes/random")
-    .then((response) => response.json())
-    .then((json) => createMessage("Fact", json.value.joke));
-}
-
-button.addEventListener("click", getChuckNorrisJoke);
+let id = 3;
 
 function createMessage(sender, messageText) {
   id++;
@@ -43,6 +26,23 @@ function createMessage(sender, messageText) {
   chatbox.innerHTML = chatbox.innerHTML + message ;
   chatbox.scrollTop = chatbox.scrollHeight;
 }
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const sender = ["Me", "Myself", "I"][Math.floor(Math.random() * 3)];
+  createMessage(sender, input.value);
+  form.reset();
+}
+
+form.addEventListener("submit", handleSubmit);
+
+function getChuckNorrisJoke() {
+  fetch("https://api.icndb.com/jokes/random")
+    .then((response) => response.json())
+    .then((json) => createMessage("Fact", json.value.joke));
+}
+
+button.addEventListener("click", getChuckNorrisJoke);
 
 const deleteMessage = (id) => {
     const message = document.getElementById(id);
